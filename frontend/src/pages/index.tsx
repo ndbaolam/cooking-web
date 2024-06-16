@@ -1,3 +1,4 @@
+import Layout from '@/components/Layout';
 import axios from 'axios';
 
 export const getServerSideProps = async () => {
