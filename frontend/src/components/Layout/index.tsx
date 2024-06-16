@@ -9,9 +9,13 @@ interface LayoutProps {
 const Layout= ({ children }: LayoutProps) => {
   return (
     <>
-      <Header/>
-      <Sidebar/>
-      <main>{children}</main>
+      <div className="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
+        <Header/>
+        <Sidebar/>
+        <main className="max-w-4xl mx-auto">
+          {children}
+        </main>
+      </div>      
     </>
   )
 };
