@@ -5,8 +5,9 @@ import { mainRoute } from './api/routes/index.route';
 
 const app: Express = express();
 
-const PORT: string | number = process.env.PORT || 3000;
+const PORT: string | number = process.env.PORT || 3080;
 
+express.json();
 app.use(cors());
 dotenv.config();
 
