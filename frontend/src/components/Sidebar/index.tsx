@@ -4,7 +4,7 @@ import { FaFire, FaPoo } from 'react-icons/fa';
 export default function Sidebar() {
   return (
     <>
-      <div className="fixed float-left left-0 h-screen w-16 m-0 flex flex-col bg-gray-900 text-white shadow-lg">
+      <div className="fixed float-left left-0 h-screen w-16 m-2 flex flex-col text-white">
         <SideBarIcon icon={<FaFire size="28"/>}/>
         <SideBarIcon icon={<BsPlus size="32"/>}/>
         <SideBarIcon icon={<BsFillLightningFill size="20"/>}/>
@@ -16,9 +16,9 @@ export default function Sidebar() {
 
 const SideBarIcon: React.FC<any> = ({ icon, text = 'tooltip' }: any) => (
   <div className="relative flex items-center justify-center 
-    h-12 w-12 my-2 shadow-lg bg-gray-800 rounded-full
-    text-green-500 hover:bg-green-500
-    mx-auto hover:text-white transition-all duration-200 
+    h-12 w-12 my-2 shadow-lg bg-black rounded-full
+    text-white hover:bg-gray-200 hover:text-black
+    mx-auto transition-all duration-200
     ease-linear cursor-pointer group">
     {icon}
 

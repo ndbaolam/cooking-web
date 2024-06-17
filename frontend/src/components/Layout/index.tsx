@@ -12,7 +12,7 @@ const Layout= ({ children }: LayoutProps) => {
       <div className="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
         <Header/>
         <Sidebar/>
-        <main className="max-w-4xl mx-auto">
+        <main className="max-w-6xl mx-auto">
           {children}
         </main>
       </div>      

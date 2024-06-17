@@ -4,29 +4,31 @@ export default function Header() {
   return (
     <>
       <div className="sticky p-5 top-0 z-10 shadow-md bg-white">
-        <section className="flex flex-row items-center justify-center max-w8xl mx-auto">
-          <div className="w-1/3 flex flex-row items-center justify-center">
-            <a href="/" className="text-3xl font-bold text-left">
-              Flavor Fusion
+        <section className="flex flex-row items-center justify-center max-w-6xl mx-auto">
+          <div className="w-1/3 flex flex-row items-center justify-left">
+            <a href="/" className="text-3xl font-bold text-left flex">
+              <span className="mr-3 border-b-2 border-black pb-1">Flavor</span>              
+              <img src="/images/logo.png" alt="logo" className="w-10 h-10 scale-150"/>
+              <span className="ml-3 border-b-2 border-black pb-1">Fusion</span>
             </a>
           </div>
           <nav className="w-1/3 flex flex-row gap-8 items-center justify-left group" aria-label="main">
-            <a href="#" id="home" className="text-lg transition-all ease-linear duration-200 font-medium hover:text-xl">Home</a>
-            <a href="#recipes" id="recipes" className="text-lg transition-all ease-linear duration-200 font-medium hover:text-xl">Recipes</a>
-            <a href="#shop" id="shop" className="text-lg transition-all ease-linear duration-200 font-medium hover:text-xl">Shop</a>
+            <a href="#" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</a>
+            <a href="#recipes" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Recipes</a>
+            <a href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</a>
             <button className="text-xl transition-all ease-linear duration-200 font-medium hover:text-xl">
               <IoSearch />
             </button>
           </nav>
 
-          <div className="w-1/3 flex flex-row items-center justify-right gap-6">
+          <div className="w-1/3 flex flex-row items-center justify-end gap-6">
             <span className="rounded-full bg-black text-white p-2 text-center w-10 h-10 font-medium">
               0
             </span>
-            <button className="bg-gray-200 max-w-30 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
+            <button className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
               Log in
             </button>
-            <button className="bg-black max-w-30 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
+            <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
               Sign up
             </button>
           </div>
