@@ -1,8 +1,24 @@
 import { IoSearch } from "react-icons/io5";
+import { Modal } from "antd";
+import { useState } from 'react';
+import SignUp from "@/components/SignUp";
 
 export default function Header() {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <>
+      <style>
+        {
+          `
+            .ant-modal-content {              
+              width: 100% !important;
+              padding: unset !important;
+              top: -8vh;
+            }            
+          `
+        }
+      </style>
       <div className="sticky p-5 top-0 z-10 shadow-md bg-white">
         <section className="flex flex-row items-center justify-center max-w-6xl mx-auto">
           <div className="w-1/3 flex flex-row items-center justify-left">
@@ -28,12 +44,23 @@ export default function Header() {
             <a href="/login" className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
               Log in
             </a>
-            <a href="/register" className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
+            <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium"
+              onClick={() => setOpen(true)}
+            >
               Sign up
-            </a>
+            </button>
           </div>
         </section>
       </div>
+
+      <Modal
+        open={open}      
+        onCancel={() => setOpen(false)}
+        footer={null}
+        width={1100}
+      >
+        <SignUp/>
+      </Modal>
     </>
   )
 };

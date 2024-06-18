@@ -38,6 +38,7 @@ const nextConfig = {
     "rc-tree-select",
     "rc-upload",
     "rc-util",
+    "rc-modal"
   ],
 };
 

@@ -109,12 +109,9 @@ const FormRegister: React.FC = () => (
   </ConfigProvider>
 );
 
-const Register = () => {  
+const SignUp: React.FC = () => {  
   return (
     <>
-      <Head>
-        <title>Sign Up Account</title>
-      </Head>
       <style>
         {
           `           
@@ -173,4 +170,4 @@ const Register = () => {
   );
 }
 
-export default Register;
+export default SignUp;
