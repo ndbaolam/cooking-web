@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Category from '../models/category.model';
 
-//[GET] /api/categories/
+//[POST] /api/categories/
 export const index = async (req: Request, res: Response) => {
   const categoriesData = await Category.find({
     // status: 'active',

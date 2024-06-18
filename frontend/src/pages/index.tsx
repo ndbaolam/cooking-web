@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import SelectBox from '@/components/SelectBox';
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,7 +10,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 // export const getServerSideProps = async () => {
 //   const data = await axios(`https://www.themealdb.com/api/json/v1/1/categories.php`);
@@ -48,13 +49,51 @@ const Swipper: React.FC<any> = ({ categories }) => {
   )
 }
 
+const CarouselHome: React.FC<any> = ({ categories }) => {
+  const plugin = useRef(
+    Autoplay({ 
+      delay: 3000,
+    })
+  );
+
+  return (
+    <>
+      <Carousel
+         plugins={[plugin.current]}
+         className="w-full"        
+         onMouseLeave={plugin.current.reset}
+      >
+        <CarouselContent>
+          {categories.map((item: any, index: number) => (
+            <CarouselItem key={index}>
+              <div className="">
+                <Card>
+                  <CardContent className="p-8 flex flex-row gap-8">
+                    <img src={item?.strCategoryThumb} alt="img" className='w-1/4' />                    
+                    <div className="mx-auto w-3/4 flex flex-col justify-center items-center gap-2">        
+                      <h1 className='text-2xl font-semibold text-center'>{item?.strCategory}</h1>              
+                      <p className='text-center text-xl'>{item?.strCategoryDescription}</p>
+                    </div>                    
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>        
+      </Carousel>
+    </>
+  )
+}
+
 const Home: React.FC<any> = ({}) => {  
   const [data, setData] = useState<any>();
   const [dataSelect, setDataSelect] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`http://localhost:3080/api/categories`);
+      const res = await fetch(`http://localhost:3080/api/categories`, {
+        method: 'POST'
+      });
       if(res.ok) {
         const result = await res.json();        
 
@@ -101,15 +140,28 @@ const Home: React.FC<any> = ({}) => {
       </section>
 
       <section className='flex flex-col mt-6 gap-8 w-full' id="recipes">
-        <div className="flex flex-row items-center justify-between gap-8">
-          {/* <img src="/images/line-curve.png" alt="line" className='max-w-60'/> */}
+        <div className="flex flex-row items-center justify-center gap-8">
+          <img src="/images/line-curve.png" alt="line" className='max-w-60'/>
           <h1 className="text-3xl font-bold">
             Recipes Categories
-          </h1>                  
-          <SelectBox title="Select Categories" dataSelect={dataSelect}/>
-          {/* <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180'/> */}
+          </h1>                            
+          <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180'/>
         </div>        
+        <SelectBox title="Select Categories" dataSelect={dataSelect}/>
         {data?.categories && <Swipper categories={data?.categories} />}
+      </section>
+
+      <section className='flex flex-col my-10 gap-8'>
+        <div className="flex flex-row items-center justify-center gap-8">
+          <img src="/images/line-curve.png" alt="line" className='max-w-60' />
+          <h1 className="text-3xl font-bold">
+            Category Description
+          </h1>
+          <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180' />
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          {data?.categories && <CarouselHome categories={data?.categories} />}
+        </div>
       </section>
     </>
   );

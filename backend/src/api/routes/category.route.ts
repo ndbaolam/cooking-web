@@ -4,7 +4,7 @@ import * as controller from '../controllers/category.control';
 
 const route: Router = Router();
 
-route.get('/', controller.index);
+route.post('/', controller.index);
 
 const categoryRoutes: Router = route
 

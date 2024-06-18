@@ -53,7 +53,7 @@ const SelectBox: React.FC<any> = ({ dataSelect = frameworks, title = 'Select ...
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] justify-between text-md"
         >
           {value
             ? dataSelect.find((item: any) => item.value === value)?.label
