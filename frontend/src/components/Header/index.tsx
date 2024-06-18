@@ -13,7 +13,7 @@ export default function Header() {
             </a>
           </div>
           <nav className="w-1/3 flex flex-row gap-8 items-center justify-left group" aria-label="main">
-            <a href="#" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</a>
+            <a href="/" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</a>
             <a href="#recipes" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Recipes</a>
             <a href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</a>
             <button className="text-xl transition-all ease-linear duration-200 font-medium hover:text-xl">
@@ -25,12 +25,12 @@ export default function Header() {
             <span className="rounded-full bg-black text-white p-2 text-center w-10 h-10 font-medium">
               0
             </span>
-            <button className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
+            <a href="/login" className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
               Log in
-            </button>
-            <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
+            </a>
+            <a href="/register" className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
               Sign up
-            </button>
+            </a>
           </div>
         </section>
       </div>
