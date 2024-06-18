@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import type { FormProps } from 'antd';
 import { Button, ConfigProvider, Form, Input, Alert } from 'antd';
+import SignUpFunction from '@/functions/signup';
 import Head from 'next/head';
-import { useRef } from 'react';
 
 type FieldType = {
   username?: string;
@@ -17,13 +17,7 @@ const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     return alert('Confirm password wrong!');
   }
 
-  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify(values)
-  });
+  SignUpFunction(values);
 };
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -119,7 +113,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Register Account</title>
+        <title>Sign Up Account</title>
       </Head>
       <style>
         {
