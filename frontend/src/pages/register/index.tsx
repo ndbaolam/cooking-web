@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { FormProps } from 'antd';
-import { Button, ConfigProvider, Form, Input } from 'antd';
+import { Button, ConfigProvider, Form, Input, Alert } from 'antd';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
+import { useRef } from 'react';
 
 type FieldType = {
   username?: string;
@@ -13,6 +13,10 @@ type FieldType = {
 };
 
 const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+  if(values.password !== values.confirmPassword) {
+    return alert('Confirm password wrong!');
+  }
+
   await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -26,7 +30,9 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-// const Button = dynamic(() => import('antd/es/button'), { ssr: false });
+const onClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  console.log(e, 'I was closed.');
+};
 
 const FormRegister: React.FC = () => (
   <ConfigProvider
@@ -109,9 +115,7 @@ const FormRegister: React.FC = () => (
   </ConfigProvider>
 );
 
-const Register = () => {
-  const router = useRouter();
-
+const Register = () => {  
   return (
     <>
       <Head>
@@ -148,7 +152,17 @@ const Register = () => {
           `
         }
       </style>
-      <div className="flex items-center justify-center gap-8 bg-slate-100 rounded-lg shadow-lg my-10 relative
+      {/* <Alert
+        message="Error"
+        description="Please confirm your password agian!"
+        type="error"
+        showIcon
+        className={`absolute z-20 right-2 top-24 ${isShow}`}
+        closable
+        onClose={onClose}
+       /> */}
+
+      <div className="flex items-center justify-center gap-8 bg-slate-100 rounded-lg drop-shadow-[0_0_10px_rgba(0,0,0,0.3)] my-10 relative
           before:w-1/3 before:absolute before:h-full before:left-0 before:bg-black before:rounded-lg
       ">
         <div className="w-1/3 float-left flex flex-wrap flex-col items-center justify-center duration-1000 delay-1000 transition gap-4 pl-5">
