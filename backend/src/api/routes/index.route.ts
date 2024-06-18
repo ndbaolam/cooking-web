@@ -1,8 +1,8 @@
 import { Express } from 'express';
-import * as controller from '../controllers/index.control';
+import categoryRoutes from './category.route';
 
 export const mainRoute = (app: Express): void => {
   const path: string = '/api';
 
-  app.use(path, controller.index);
+  app.use(`${path}/categories`, categoryRoutes);
 }

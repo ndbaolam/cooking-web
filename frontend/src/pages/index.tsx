@@ -54,7 +54,7 @@ const Home: React.FC<any> = ({}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+      const res = await fetch(`http://localhost:3080/api/categories`);
       if(res.ok) {
         const result = await res.json();        
 
@@ -109,7 +109,7 @@ const Home: React.FC<any> = ({}) => {
           <SelectBox title="Select Categories" dataSelect={dataSelect}/>
           {/* <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180'/> */}
         </div>        
-        <Swipper categories={data?.categories} />        
+        {data?.categories && <Swipper categories={data?.categories} />}
       </section>
     </>
   );
