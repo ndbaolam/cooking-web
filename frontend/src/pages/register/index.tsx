@@ -1,32 +1,166 @@
-import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import React from 'react';
+import type { FormProps } from 'antd';
+import { Button, ConfigProvider, Form, Input } from 'antd';
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+type FieldType = {
+  username?: string;
+  email?: string
+  password?: string;
+  confirmPassword?: string;
+};
+
+const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(values)
+  });
+};
+
+const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
+
+// const Button = dynamic(() => import('antd/es/button'), { ssr: false });
+
+const FormRegister: React.FC = () => (
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: "black",
+        fontSize: 17,
+        colorText: "white"
+      },
+      components: {
+        Form: {
+          labelRequiredMarkColor: "none"
+        },
+        Input: {
+          hoverBg: "none",
+          hoverBorderColor: "none"
+        },
+        Button: {
+          defaultBorderColor: "none"
+        }
+      }
+    }}
+  >
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 600 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item<FieldType>
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please enter your username!' }]}
+      >
+        <Input bordered={false} />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please enter your email!' }]}
+      >
+        <Input bordered={false} />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please enter your password!' }]}
+      >
+        <Input.Password bordered={false} />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Confirm"
+        name="confirmPassword"
+        rules={[{ required: true, message: 'Please confirm your password!' }]}
+      >
+        <Input.Password bordered={false} />
+      </Form.Item>
+
+      {/* <Form.Item<FieldType>
+      name="remember"
+      valuePropName="checked"
+      wrapperCol={{ offset: 8, span: 16 }}
+    >
+      <Checkbox>Remember me</Checkbox>
+    </Form.Item> */}
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  </ConfigProvider>
+);
 
 const Register = () => {
-  const router = useRouter();  
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    });   
-  }
+  const router = useRouter();
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Login</button>
-      </form>
+      <Head>
+        <title>Register Account</title>
+      </Head>
+      <style>
+        {
+          `           
+            .ant-input-affix-wrapper, .ant-input {
+              background: #dad9d97a;
+              border-bottom: #ddd !important;
+            }
+            .ant-input-affix-wrapper-focused, .ant-input:focus {
+              animation: focus 0.5s
+            }
+            label::before {
+              display: none !important;
+            }
+            @keyframes focus {
+              0% {scale: 1.0;}
+              50% {scale: 1.1;}
+              100% {scale: 1.0;}
+            }
+            .ant-btn {
+              border: 2px solid white;
+              padding: 1rem 4rem 1rem 4rem;
+              background: #fff;
+              color: black;
+              transition: 0.5s all !important;              
+            } 
+            .ant-btn:hover {
+              scale: 1.1;
+            }            
+          `
+        }
+      </style>
+      <div className="flex items-center justify-center gap-8 bg-slate-100 rounded-lg shadow-lg my-10 relative
+          before:w-1/3 before:absolute before:h-full before:left-0 before:bg-black before:rounded-lg
+      ">
+        <div className="w-1/3 float-left flex flex-wrap flex-col items-center justify-center duration-1000 delay-1000 transition gap-4 pl-5">
+          <h2 className='text-5xl font-bold text-center text-white z-10'>Welcome to Flavor Fusion</h2>
+          <hr className="w-3/4 h-0.5 bg-white z-10" />
+          <h4 className='text-xl text-center text-white z-10'>Sign up new account using email and password</h4>
+          <FormRegister />
+        </div>
+        <div className="w-2/3 float-right">
+          <img src="/images/home.png" alt="" className='rounded-lg' />
+        </div>
+      </div>
     </>
   );
 }
