@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 const SignUpFunction = async (values: any) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-up`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
