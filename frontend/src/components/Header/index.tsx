@@ -60,7 +60,7 @@ export default function Header() {
           </div>
           <nav className="w-1/3 flex flex-row gap-8 items-center justify-left group" aria-label="main">
             <a href="/" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</a>
-            <a href="#recipes" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Recipes</a>
+            <a href="/create-post" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Post</a>
             <a href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</a>
             <button className="text-xl transition-all ease-linear duration-200 font-medium hover:text-xl">
               <IoSearch />

@@ -35,7 +35,7 @@ const Swipper: React.FC<any> = ({ categories }) => {
               <div className="">
                 <Card>
                   <CardContent className="flex aspect-square items-center justify-center p-6 object-fill">
-                    <img src={item?.strCategoryThumb} alt="img" className='w-full h-full' />
+                    <img src={item?.thumbnail} alt="img" className='w-full h-full' />
                   </CardContent>
                 </Card>
               </div>
@@ -69,10 +69,10 @@ const CarouselHome: React.FC<any> = ({ categories }) => {
               <div className="">
                 <Card>
                   <CardContent className="p-8 flex flex-row gap-8">
-                    <img src={item?.strCategoryThumb} alt="img" className='w-1/4' />                    
+                    <img src={item?.thumbnail} alt="img" className='w-1/4' />                    
                     <div className="mx-auto w-3/4 flex flex-col justify-center items-center gap-2">        
-                      <h1 className='text-2xl font-semibold text-center'>{item?.strCategory}</h1>              
-                      <p className='text-center text-xl'>{item?.strCategoryDescription}</p>
+                      <h1 className='text-2xl font-semibold text-center'>{item?.title}</h1>              
+                      <p className='text-center text-xl'>{item?.description}</p>
                     </div>                    
                   </CardContent>
                 </Card>
@@ -91,17 +91,15 @@ const Home: React.FC<any> = ({}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
-        method: 'POST'
-      });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category`);
       if(res.ok) {
         const result = await res.json();        
 
         const selectData: any = [];
-        result?.categories.forEach((item: any) => {
+        result.forEach((item: any) => {
           selectData.push({
-            value: item.strCategory.toLowerCase(),
-            label: item.strCategory
+            value: item.title.toLowerCase(),
+            label: item.title
           });
         });
 
@@ -148,7 +146,7 @@ const Home: React.FC<any> = ({}) => {
           <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180'/>
         </div>        
         <SelectBox title="Select Categories" dataSelect={dataSelect}/>
-        {data?.categories && <Swipper categories={data?.categories} />}
+        {data && <Swipper categories={data} />}
       </section>
 
       <section className='flex flex-col my-10 gap-8'>
@@ -160,7 +158,7 @@ const Home: React.FC<any> = ({}) => {
           <img src="/images/line-curve.png" alt="line" className='max-w-60 rotate-180' />
         </div>
         <div className="flex flex-col items-center justify-center">
-          {data?.categories && <CarouselHome categories={data?.categories} />}
+          {data && <CarouselHome categories={data} />}
         </div>
       </section>
     </>
