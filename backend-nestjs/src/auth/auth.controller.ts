@@ -1,6 +1,5 @@
-import { Controller, Get, HttpStatus, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import md5 from 'md5';
 import { AuthDTO } from "./dto";
 
 @Controller('api/auth')
@@ -12,8 +11,8 @@ export class AuthController{
     return this.authService.signUp(dto);
   }
 
-  @Get('sign-in')
-  signIn(): string {
-    return 'Im a sign in';
+  @Post('sign-in')
+  signIn(@Body() dto:AuthDTO) {
+    return this.authService.signIn(dto);
   }
 }
