@@ -23,12 +23,18 @@ export class AuthService {
     });
 
     if(!user) {
-      throw new ForbiddenException('Credentials incorrect!');
+      return {
+        message: "User not found!",
+        result: false
+      }
     }
     //Compare password
     const pwMatch: string = md5(user.password);
     if(pwMatch === dto.password) {
-      throw new ForbiddenException('Credentials incorrect!');
+      return {
+        message: "Wrong password!",
+        result: false
+      }
     }
     
     return this.signToken(user.id, user.userName, user.email);
@@ -45,23 +51,15 @@ export class AuthService {
           email: dto.email,
           password: password,
           userName: userName
-        },
-        // select: {
-        //   id: true,
-        //   email: true,
-        //   userName: true,
-        //   createdAt: true,
-        // }
+        },       
       });
   
       return this.signToken(user.id, user.userName, user.email);
     } catch (error) {
-      if(error instanceof PrismaClientKnownRequestError) {
-        if(error.code === 'P2002') {
-          throw new ForbiddenException('Credentials taken')
-        }
+      return {
+        error,
+        result: false
       }
-      throw error;
     }
   }
 
@@ -69,7 +67,7 @@ export class AuthService {
     userId: number,
     userName: string,
     email: string,    
-  ): Promise<{ access_token: string }> {
+  ): Promise<{ access_token: string, result: boolean }> {
     const payload = {
       sub: userId,
       userName,
@@ -84,7 +82,8 @@ export class AuthService {
     });
 
     return {
-      access_token: token
+      access_token: token,
+      result: true
     }
   }
 }

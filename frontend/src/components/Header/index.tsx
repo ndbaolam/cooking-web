@@ -1,11 +1,41 @@
 import { IoSearch } from "react-icons/io5";
 import { Modal } from "antd";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SignUp from "@/components/SignUp";
+import SignIn from "@/components/SignIn";
+import Cookies from "js-cookie";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
+
+interface CustomJwtPayload {
+  sub: string;      // Subject (usually user ID)
+  email: string;    // Email
+  userName: string; // User name
+  exp?: number;     // Expiry date (optional)
+  iat?: number;     // Issued at (optional)
+  // Add other properties if needed
+}
 
 export default function Header() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [openSignIn, setOpenSignIn] = useState<boolean>(false);
+  const [openSignUp, setOpenSignUp] = useState<boolean>(false);
+  const [token, setToken] = useState<string>('');
 
+  useEffect(() => {
+    const ff_token = Cookies.get('ff_token');
+    if(ff_token) {
+      setToken(ff_token);
+    }
+  }, [token]);
+
+  const handleSignOut = () => {
+    Cookies.remove('ff_token');
+    setToken('');
+  }
+  
   return (
     <>
       <style>
@@ -23,8 +53,8 @@ export default function Header() {
         <section className="flex flex-row items-center justify-center max-w-6xl mx-auto">
           <div className="w-1/3 flex flex-row items-center justify-left">
             <a href="/" className="text-3xl font-bold text-left flex">
-              <span className="mr-3 border-b-2 border-black pb-1">Flavor</span>              
-              <img src="/images/logo.png" alt="logo" className="w-10 h-10 scale-150"/>
+              <span className="mr-3 border-b-2 border-black pb-1">Flavor</span>
+              <img src="/images/logo.png" alt="logo" className="w-10 h-10 scale-150" />
               <span className="ml-3 border-b-2 border-black pb-1">Fusion</span>
             </a>
           </div>
@@ -38,28 +68,55 @@ export default function Header() {
           </nav>
 
           <div className="w-1/3 flex flex-row items-center justify-end gap-6">
-            <span className="rounded-full bg-black text-white p-2 text-center w-10 h-10 font-medium">
-              0
-            </span>
-            <a href="/login" className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium">
-              Log in
-            </a>
-            <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium"
-              onClick={() => setOpen(true)}
-            >
-              Sign up
-            </button>
+            {!token ? (
+              <>
+                <span className="rounded-full bg-black text-white p-2 text-center w-10 h-10 font-medium">
+                  0
+                </span>
+                <button className="bg-gray-200 max-w-60 rounded-3xl p-2 px-5 text-center hover:scale-110 cursor-pointer transition-all duration-200 font-medium"
+                  onClick={() => setOpenSignIn(true)}
+                >
+                  Log in
+                </button>
+                <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium"
+                  onClick={() => setOpenSignUp(true)}
+                >
+                  Sign up
+                </button>
+              </>
+            ) : (
+              <>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar> 
+                <button className="bg-black max-w-60 rounded-3xl p-2 px-5 text-center text-white hover:scale-110 cursor-pointer transition-all duration-200 font-medium"
+                  onClick={handleSignOut}
+                >
+                  Sign out
+                </button>                             
+              </>
+            )}
           </div>
         </section>
       </div>
 
       <Modal
-        open={open}      
-        onCancel={() => setOpen(false)}
+        open={openSignUp}
+        onCancel={() => setOpenSignUp(false)}
         footer={null}
         width={1100}
       >
-        <SignUp/>
+        <SignUp />
+      </Modal>
+
+      <Modal
+        open={openSignIn}
+        onCancel={() => setOpenSignIn(false)}
+        footer={null}
+        width={1100}
+      >
+        <SignIn />
       </Modal>
     </>
   )

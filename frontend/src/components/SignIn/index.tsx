@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import type { FormProps } from 'antd';
 import { Button, ConfigProvider, Form, Input, Alert } from 'antd';
-import SignUpFunction from '@/functions/signup';
+import SignInFunction from '@/functions/signin';
 import Head from 'next/head';
 
 type FieldType = {
@@ -13,12 +13,7 @@ type FieldType = {
 };
 
 const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-  // console.log(values)
-  if(values.password !== values.confirmPassword) {
-    return alert('Confirm password wrong!');
-  }
-
-  const result = await SignUpFunction(values);
+  const result = await SignInFunction(values);
   
   if(result) {
     location.reload();
@@ -33,7 +28,7 @@ const onClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
   console.log(e, 'I was closed.');
 };
 
-const FormRegister: React.FC = () => (
+const FormSignIn: React.FC = () => (
   <ConfigProvider
     theme={{
       token: {
@@ -64,14 +59,7 @@ const FormRegister: React.FC = () => (
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please enter your username!' }]}
-      >
-        <Input bordered={false} />
-      </Form.Item>
+    >      
 
       <Form.Item<FieldType>
         label="Email"
@@ -87,15 +75,7 @@ const FormRegister: React.FC = () => (
         rules={[{ required: true, message: 'Please enter your password!' }]}
       >
         <Input.Password bordered={false} />
-      </Form.Item>
-
-      <Form.Item<FieldType>
-        label="Confirm"
-        name="confirmPassword"
-        rules={[{ required: true, message: 'Please confirm your password!' }]}
-      >
-        <Input.Password bordered={false} />
-      </Form.Item>
+      </Form.Item>      
 
       {/* <Form.Item<FieldType>
       name="remember"
@@ -114,7 +94,7 @@ const FormRegister: React.FC = () => (
   </ConfigProvider>
 );
 
-const SignUp: React.FC = () => {  
+const SignIn: React.FC = () => {  
   return (
     <>
       <style>
@@ -162,10 +142,10 @@ const SignUp: React.FC = () => {
           before:w-1/3 before:absolute before:h-full before:left-0 before:bg-black before:rounded-lg
       ">
         <div className="w-1/3 float-left flex flex-wrap flex-col items-center justify-center duration-1000 delay-1000 transition gap-4 pl-5">
-          <h2 className='text-5xl font-bold text-center text-white z-10'>Welcome to Flavor Fusion</h2>
+          <h2 className='text-5xl font-bold text-center text-white z-10'>Hello friend!</h2>
           <hr className="w-3/4 h-0.5 bg-white z-10" />
-          <h4 className='text-xl text-center text-white z-10'>Sign up new account using email and password</h4>
-          <FormRegister />
+          <h4 className='text-xl text-center text-white z-10'>Sign in your account using email and password</h4>
+          <FormSignIn />
         </div>
         <div className="w-2/3 float-right">
           <img src="/images/home.png" alt="" className='rounded-lg' />
@@ -175,4 +155,4 @@ const SignUp: React.FC = () => {
   );
 }
 
-export default SignUp;
+export default SignIn;
