@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { createLinkTilte } from '@/functions/createLink';
 
 // export const getServerSideProps = async () => {
 //   const data = await axios(`https://www.themealdb.com/api/json/v1/1/categories.php`);
@@ -32,13 +33,13 @@ const Swipper: React.FC<any> = ({ categories }) => {
         <CarouselContent>
           {categories.map((item: any, index: number) => (
             <CarouselItem key={index} className='basis-1/5'>
-              <div className="">
+              <a href={'category/' + createLinkTilte(item?.title) + '-' + item?.id}>
                 <Card>
                   <CardContent className="flex aspect-square items-center justify-center p-6 object-fill">
                     <img src={item?.thumbnail} alt="img" className='w-full h-full' />
                   </CardContent>
                 </Card>
-              </div>
+              </a>
             </CarouselItem>
           ))}
         </CarouselContent>
