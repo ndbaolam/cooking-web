@@ -1,16 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  message: string;
-};
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  if(req.method === 'POST')
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'POST') {
+    console.log(Buffer.from(req.body).toString('base64'))
     res.status(200).json({
-      message: "Upload image"
-    });
+      message: 'OK',      
+    })
+  } else {
+    res.status(405).end(); // Method Not Allowed
+  }
 }
+
+export default handler;

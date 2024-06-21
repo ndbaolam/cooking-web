@@ -13,6 +13,7 @@ const normFile = (e: any) => {
 };
 
 const onFinish: FormProps['onFinish'] = async (values) => {
+  console.log(values);
   const result = await createPost(values);
   location.reload();
 };
@@ -21,6 +22,10 @@ const onFinish: FormProps['onFinish'] = async (values) => {
 const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
+
+const handleChange = (e: any) => {
+  console.log('change:',e);
+}
 
 const FormCreatePost: React.FC = () => (
   <ConfigProvider
@@ -56,7 +61,11 @@ const FormCreatePost: React.FC = () => (
         valuePropName="thumbnail" 
         getValueFromEvent={normFile}
         >
-        <Upload action="api/upload" listType="picture-card">
+        <Upload 
+          action="api/upload" 
+          listType="picture-card"
+          onChange={handleChange}
+        >
           <button style={{ border: 0, background: 'none' }} type="button">
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>

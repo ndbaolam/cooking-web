@@ -9,6 +9,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import Link from 'next/link';
 
 interface CustomJwtPayload {
   sub: string;      // Subject (usually user ID)
@@ -52,16 +53,16 @@ export default function Header() {
       <div className="sticky p-5 top-0 z-10 shadow-md bg-white">
         <section className="flex flex-row items-center justify-center max-w-6xl mx-auto">
           <div className="w-1/3 flex flex-row items-center justify-left">
-            <a href="/" className="text-3xl font-bold text-left flex">
+            <Link href="/" className="text-3xl font-bold text-left flex">
               <span className="mr-3 border-b-2 border-black pb-1">Flavor</span>
               <img src="/images/logo.png" alt="logo" className="w-10 h-10 scale-150" />
               <span className="ml-3 border-b-2 border-black pb-1">Fusion</span>
-            </a>
+            </Link>
           </div>
           <nav className="w-1/3 flex flex-row gap-8 items-center justify-left group" aria-label="main">
-            <a href="/" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</a>
-            <a href="/create-post" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Post</a>
-            <a href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</a>
+            <Link href="/" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</Link>
+            <Link href="/create-post" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Post</Link>
+            <Link href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</Link>
             <button className="text-xl transition-all ease-linear duration-200 font-medium hover:text-xl">
               <IoSearch />
             </button>

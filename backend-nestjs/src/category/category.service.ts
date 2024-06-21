@@ -131,7 +131,8 @@ export class CategoryService {
 
     return {
       result: true,
-      message: 'Created new post!'
+      message: 'Created new post!',
+      newCategory
     }
   }
 }

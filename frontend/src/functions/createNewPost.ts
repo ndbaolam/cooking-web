@@ -11,10 +11,13 @@ const createPost = async (dataTranfer: any): Promise<void> => {
   const token = Cookies.get('ff_token');
   const decode = jwtDecode<CustomJwtPayload>(token || '');
 
-  const thumbnail: string = dataTranfer.thumbnail[0];
+  const thumbnail: string = dataTranfer.thumbnail[0].thumbUrl;
 
   const title: string = dataTranfer.title;
   const description: string = dataTranfer.description;
+
+  // console.log(typeof thumbnail)
+  // console.log(thumbnail)
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/create-post`, {
     method: 'POST',
@@ -31,7 +34,7 @@ const createPost = async (dataTranfer: any): Promise<void> => {
 
   const result = await response.json();
 
-  console.log(result);
+  console.log('check result:', result);
   return result;
 }
 
