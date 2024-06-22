@@ -43,7 +43,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
 }
 
 const userPage: React.FC<any> = ({ data, emailA }) => {
-  const [key, setKey] = useState<number>(0);
 
   const handleClick = async (emailB: string) => {
     console.log({
