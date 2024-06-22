@@ -23,6 +23,8 @@ interface CustomJwtPayload {
 export default function Header() {
   const [openSignIn, setOpenSignIn] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
+  const [openUserModal, setOpenUserModal] = useState<boolean>(false);
+
   const [token, setToken] = useState<string>('');
 
   useEffect(() => {
@@ -35,7 +37,8 @@ export default function Header() {
   const handleSignOut = () => {
     Cookies.remove('ff_token');
     setToken('');
-  }
+    location.reload();
+  }  
   
   return (
     <>
@@ -62,7 +65,9 @@ export default function Header() {
           <nav className="w-1/3 flex flex-row gap-8 items-center justify-left group" aria-label="main">
             <Link href="/" id="home" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Home</Link>
             <Link href="/create-post" id="recipes" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Post</Link>
-            <Link href="#shop" id="shop" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2">Shop</Link>
+            <Link href="/users" id="users" className="w-1/3 text-center text-lg transition-all ease-linear duration-200 font-medium rounded-lg hover:bg-black hover:text-white p-2"             
+            >Users
+            </Link>
             <button className="text-xl transition-all ease-linear duration-200 font-medium hover:text-xl">
               <IoSearch />
             </button>

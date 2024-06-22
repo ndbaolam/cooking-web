@@ -18,6 +18,9 @@ model User {
   comments Comment[]
   categories Category[]
 
+  followedBy User[]  @relation("UserFollows")
+  following  User[]  @relation("UserFollows")
+
   @@map("users")
 }
 

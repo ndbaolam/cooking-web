@@ -93,7 +93,8 @@ const Category: React.FC<any> = ({ data, slug }) => {
 
   return (
     <>
-      <UserContext.Provider value={data}>
+      {data && (
+        <UserContext.Provider value={data}>
         <div className="flex max-w-6xl mx-auto bg-white w-full h-screen p-10 gap-8">
           <img src={data?.thumbnail} alt="image" className='w-2/3 rounded-lg' />
           <div className="w-1/3 float-right flex flex-col gap-8">
@@ -105,20 +106,20 @@ const Category: React.FC<any> = ({ data, slug }) => {
               <h2 className='text-2xl font-bold'>{data?.userUpPost?.userName}</h2>
             </div>
             <div id="desc" className="text-xl overflow-y-scroll h-1/4">
-              {data.category.description}
+              {data ? data?.category?.description: ''}
             </div>
             <div id="comment" className="border-1 border-black relative bottom-0 h-1/2">
               <ul className="list-none p-2 overflow-y-scroll h-2/3">
                 {
-                  data.comment.map((item: any, index: number) => (
+                  data?.comment?.map((item: any, index: number) => (
                     <li key={index} className='flex gap-4 items-center justify-normal rounded-lg bg-slate-200 p-2 mb-2'>
                       <Avatar>
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
                       <div>
-                        <h2 className='text-xl font-bold'>{item.userName}</h2>
-                        <h2 className='text-xl'>{item.content}</h2>
+                        <h2 className='text-xl font-bold'>{item?.userName}</h2>
+                        <h2 className='text-xl'>{item?.content}</h2>
                       </div>
                     </li>
                   ))
@@ -131,6 +132,7 @@ const Category: React.FC<any> = ({ data, slug }) => {
           </div>
         </div>
       </UserContext.Provider>
+      )}      
     </>
   )
 }

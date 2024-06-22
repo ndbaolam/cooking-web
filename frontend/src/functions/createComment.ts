@@ -1,18 +1,9 @@
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-
-interface CustomJwtPayload {
-  sub: string;
-  email: string;
-  userName: string;
-}
+import getEmailCurrentUser from "./getUserCurrentEmail";
 
 const createComment = async (dataTranfer: any): Promise<void> => {
-  try {
-    const token = Cookies.get('ff_token');
-    if (token) {
-      const decode = jwtDecode<CustomJwtPayload>(token || '');
-
+  try {    
+    const email = getEmailCurrentUser();
+    if (email !== '') {      
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/comment`, {
         method: 'POST',
         headers: {
@@ -21,7 +12,7 @@ const createComment = async (dataTranfer: any): Promise<void> => {
         body: JSON.stringify({
           content: dataTranfer.content,
           categoryId: dataTranfer.categoryId,
-          email: decode.email
+          email: email
         })
       });
 
