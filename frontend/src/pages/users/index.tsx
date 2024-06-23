@@ -42,7 +42,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 }
 
-const userPage: React.FC<any> = ({ data, emailA }) => {
+const PageUser: React.FC<any> = ({ data, emailA }) => {
 
   const handleClick = async (emailB: string) => {
     console.log({
@@ -113,4 +113,4 @@ const userPage: React.FC<any> = ({ data, emailA }) => {
   );
 }
 
-export default userPage;
+export default PageUser;

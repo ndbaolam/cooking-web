@@ -8,6 +8,10 @@ import {
 import type { FormProps } from 'antd';
 import { Button, ConfigProvider, Form, Input } from 'antd';
 import createComment from '@/functions/createComment';
+import Image from 'next/image';
+import handleVote from '@/functions/handleVote';
+import getEmailCurrentUser from '@/functions/getUserCurrentEmail';
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug;
@@ -77,26 +81,41 @@ const FormComment: React.FC = () => {
 
 
 const Category: React.FC<any> = ({ data, slug }) => {
+  const email = getEmailCurrentUser();
+  const [isVoted, setIsVoted]  = useState();
   // const [category, setCategory] = useState<any>(data);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/${slug}`);
-  //     const data = await response.json();       
-  //     setCategory(data);
-  //   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vote/checked`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          categoryId: data.category.id,
+          email: email,
+        })
+      });
+      
+      const result = await response.json();
 
-  //   fetchData();
-  // }, [category]);
+      setIsVoted(result.isVoted);
+    }
+    fetchData();
+  }, [isVoted]);
 
-  //console.log(data);
+  console.log(data);
 
   return (
     <>
       {data && (
         <UserContext.Provider value={data}>
         <div className="flex max-w-6xl mx-auto bg-white w-full h-screen p-10 gap-8">
-          <img src={data?.thumbnail} alt="image" className='w-2/3 rounded-lg' />
+          <Image src={data?.thumbnail} alt="image" className='w-2/3 rounded-lg aspect-square' 
+            onError={(e: any) => {
+              e.currentTarget.srcset = "/images/home.png"
+            }}/>
           <div className="w-1/3 float-right flex flex-col gap-8">
             <div id="ava" className="flex items-center justify-normal gap-6 h-1/10">
               <Avatar>
@@ -108,6 +127,20 @@ const Category: React.FC<any> = ({ data, slug }) => {
             <div id="desc" className="text-xl overflow-y-scroll h-1/4">
               {data ? data?.category?.description: ''}
             </div>
+
+            <div id="action" className="flex items-center justify-center gap-10">
+            { isVoted !== 'up' && <button className="rounded-full bg-slate-500 w-10 h-10 text-white text-center text-3xl flex items-center justify-center"
+                onClick={() => handleVote(data?.category?.id, 'up')}
+              >
+                <FaAngleUp/>
+              </button>}
+            { isVoted !== 'down' && <button className="rounded-full bg-slate-500 w-10 h-10 text-white text-center text-3xl flex items-center justify-center"
+                onClick={() => handleVote(data?.category?.id, 'down')}
+              >
+                <FaAngleDown/>
+              </button>}
+            </div>
+
             <div id="comment" className="border-1 border-black relative bottom-0 h-1/2">
               <ul className="list-none p-2 overflow-y-scroll h-2/3">
                 {
