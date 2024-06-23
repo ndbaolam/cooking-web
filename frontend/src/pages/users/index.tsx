@@ -19,7 +19,8 @@ export const getServerSideProps = async (context: NextPageContext) => {
   console.log(context?.req?.headers.cookie);
 
   const cookie = context?.req?.headers.cookie;
-  const token = cookie?.split('=')[1] || '';
+  const token = cookie?.split(';').find((c) => c.trim().startsWith('ff_token='))?.split('=')[1] || '';
+
   const decode = jwtDecode<CustomJwtPayload>(token);
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {

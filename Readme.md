@@ -1,7 +1,24 @@
-Kiến trúc sản phẩm:
+# Flavor Fusion
 
--   Database: Sử dụng Prisma để tạo model, tự động chuyển đổi sang cơ sở
-    dữ liệu PostgresSQL
+-   Flavor Fusion là blog về nấu ăn giúp mọi người học hỏi và chia sẻ
+    kiến thức về ẩm thực.
+
+# Chức năng
+
+-   Đăng nhập, đăng ký, xác thực thông tin
+
+-   Tạo, upload ảnh, xem bài viết
+
+-   Upvote, Downvote
+
+-   Bình luận
+
+-   Follow người dùng
+
+# Kiến trúc sản phẩm:
+
+-   Database: Sử dụng Prisma để tạo model, chuyển đổi sang cơ sở dữ liệu
+    PostgresSQL
 
 -   Backend (NestJS) :
 
